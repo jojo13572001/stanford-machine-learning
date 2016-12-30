@@ -71,7 +71,9 @@ for i=1:m
     y_vet(y(i),i) = 1;
 end
 
-J = sum(sum(-log(a3).*y_vet - log(1-a3).*(1-y_vet)))/m;
+J = sum(sum(-log(a3).*y_vet - log(1-a3).*(1-y_vet)))/m;%finish part1
+
+J = J + lambda*(sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)))/(2*m);
 %disp(size(a3));
 %disp(size(y_vet));
 
