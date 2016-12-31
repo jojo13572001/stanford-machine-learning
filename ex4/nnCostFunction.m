@@ -77,9 +77,21 @@ J = J + lambda*(sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)))/(2*
 %disp(size(a3));
 %disp(size(y_vet));
 
-
-
-
+Delta1 = zeros(size(Theta1));
+Delta2 = zeros(size(Theta2));
+for i=1:m
+    a1 = X(i,:);%1*400
+    z2 = [1 a1]*Theta1';%1*25
+    a2 = sigmoid(z2);%1*25
+    z3 = [1 a2]*Theta2';%1*10
+    a3 = sigmoid(z3);%1*10
+    delta3 = a3 - y_vet(:,i)';%1*10
+    delta2 = delta3*Theta2(:,2:end).*sigmoidGradient(z2);%1*25
+    Delta1 = Delta1 + delta2'*[1 a1];%25*401
+    Delta2 = Delta2 + delta3'*[1 a2];%10*26
+end
+Theta1_grad = Delta1/m;
+Theta2_grad = Delta2/m;
 
 
 
