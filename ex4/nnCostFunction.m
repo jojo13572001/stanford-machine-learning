@@ -73,7 +73,7 @@ end
 
 J = sum(sum(-log(a3).*y_vet - log(1-a3).*(1-y_vet)))/m;%finish part1
 
-J = J + lambda*(sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)))/(2*m);
+J = J + lambda*(sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)))/(2*m);%regularization
 %disp(size(a3));
 %disp(size(y_vet));
 
@@ -90,10 +90,11 @@ for i=1:m
     Delta1 = Delta1 + delta2'*[1 a1];%25*401
     Delta2 = Delta2 + delta3'*[1 a2];%10*26
 end
-Theta1_grad = Delta1/m;
-Theta2_grad = Delta2/m;
+Theta1_grad = Delta1/m;%25*401
+Theta2_grad = Delta2/m;%10*26
 
-
+Theta1_grad(:,2:end) =  Theta1_grad(:,2:end) + lambda*Theta1(:,2:end)/m;
+Theta2_grad(:,2:end) =  Theta2_grad(:,2:end) + lambda*Theta2(:,2:end)/m;
 
 
 
